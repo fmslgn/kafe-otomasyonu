@@ -1,9 +1,5 @@
 <div align="center">
 
-<img src="docs/images/kafe-otomasyonu-afis.svg" alt="Kafe Otomasyonu Afiş" width="100%" />
-
-<br>
-
 # ☕ Modern Kafe Otomasyonu
 
 **Flutter + Node.js + PostgreSQL ile geliştirilmiş; garson, yönetici, kurye ve müşteri QR menü süreçlerini tek panelde yöneten modern kafe otomasyonu uygulaması.**
@@ -13,6 +9,10 @@
 ![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express.js-API-000000?style=for-the-badge&logo=express&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
+<br>
+
+<img src="docs/images/kafe-otomasyonu-afis.png" alt="Kafe Otomasyonu Afiş" width="100%" />
 
 </div>
 
@@ -333,7 +333,7 @@ kafe-otomasyonu/
 │
 ├── docs/
 │   ├── images/
-│   │   └── kafe-otomasyonu-afis.svg
+│   │   └── kafe-otomasyonu-afis.png
 │   └── ui-design/
 │       └── stitch/
 │           ├── 01-ana-giris.png
