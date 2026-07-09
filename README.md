@@ -1,49 +1,581 @@
-# Modern Kafe Otomasyonu
+<div align="center">
 
-Bu proje; Flutter frontend, Node.js backend ve PostgreSQL veritabanı kullanılarak geliştirilen modern bir kafe otomasyonu uygulamasıdır.
+# ☕ Modern Kafe Otomasyonu
 
-## Özellikler
+**Flutter + Node.js + PostgreSQL ile geliştirilmiş; garson, yönetici, kurye ve müşteri QR menü süreçlerini tek panelde yöneten modern kafe otomasyonu uygulaması.**
 
-- Rol bazlı giriş sistemi
-- Garson paneli
-- Yönetici paneli
-- Kurye paneli
-- Masa siparişi oluşturma
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-Frontend-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-API-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
+</div>
+
+---
+
+## 📌 Proje Hakkında
+
+**Modern Kafe Otomasyonu**, kafe ve restoran işletmelerinde sipariş alma, masa yönetimi, paket sipariş takibi, kurye atama, QR menü, gelir-gider takibi, raporlama ve personel prim süreçlerini dijital ortama taşımak için geliştirilmiş kapsamlı bir otomasyon sistemidir.
+
+Proje iki ana bölümden oluşur:
+
+| Bölüm | Açıklama |
+|---|---|
+| **Frontend** | Flutter ile geliştirilen kullanıcı arayüzü |
+| **Backend** | Node.js ve Express.js ile geliştirilen REST API |
+| **Veritabanı** | PostgreSQL üzerinde tutulan işletme verileri |
+
+---
+
+## 🧭 İçindekiler
+
+- [Öne Çıkan Özellikler](#-öne-çıkan-özellikler)
+- [Kullanıcı Rolleri](#-kullanıcı-rolleri)
+- [Ekran Görüntüleri](#-ekran-görüntüleri)
+- [Teknolojiler](#-kullanılan-teknolojiler)
+- [Proje Yapısı](#-proje-yapısı)
+- [Kurulum](#-kurulum)
+- [Backend Ortam Değişkenleri](#-backend-ortam-değişkenleri)
+- [API Modülleri](#-api-modülleri)
+- [Geliştirme Notları](#-geliştirme-notları)
+
+---
+
+## 🚀 Öne Çıkan Özellikler
+
+### 👤 Rol Bazlı Giriş Sistemi
+
+- Yönetici, garson ve kurye rolleri için ayrı kullanım senaryoları
+- Kullanıcı adı ve şifre ile giriş
+- Kullanıcı aktif/pasif durum kontrolü
+- Şifre değiştirme işlemleri
+
+### 🪑 Masa ve Sipariş Yönetimi
+
+- Masa listeleme
+- Masa bölümü/kategorisi yönetimi
+- Masaya ürün ekleme
+- Aktif sipariş görüntüleme
+- Sipariş notu ekleme
+- Hesap kapatma
+
+### 🛵 Paket Sipariş ve Kurye Süreci
+
 - Paket sipariş oluşturma
-- Kurye teslimat takibi
-- QR menü
-- Müşteri geri bildirimleri
-- Gelir-gider takibi
-- Malzeme alım işlemleri
-- Raporlama
-- Personel prim yönetimi
+- Müşteri adı, telefon, adres ve sipariş notu kaydı
+- Aktif paket sipariş listesi
+- Kuryeye sipariş atama
+- Teslimat durumu güncelleme
+- Paket siparişi tamamlama veya iptal etme
 
-## Kullanılan Teknolojiler
+### 📱 QR Menü
 
-- Flutter
-- Node.js
-- PostgreSQL
+- Müşterilerin giriş yapmadan menüye erişebilmesi
+- Dikey ve yatay menü görünümü
+- Ürün görselleri, açıklamaları ve fiyatları
+- Kafe bilgileri ve aktif etkinliklerin gösterimi
+- Müşteri geri bildirim formu
 
-## Kurulum
+### 🧾 Ürün ve Menü Yönetimi
 
-Backend için:
+- Ürün ekleme, güncelleme ve pasifleştirme
+- Kategori yönetimi
+- Ürün görseli yükleme
+- Ürün görünürlük durumu
+- QR menüde gösterilecek ürünlerin kontrolü
+
+### 💰 Gelir-Gider ve Malzeme Takibi
+
+- Gelir-gider özeti
+- Genel gider kayıtları
+- Malzeme alım kayıtları
+- Günlük, haftalık, aylık ve tüm zaman filtreleri
+
+### 📊 Raporlama
+
+- Satış raporları
+- Kapanan hesaplar
+- En çok satılan ürünler
+- Kullanıcı bazlı satış raporu
+- Garson ve kurye prim raporları
+
+### 🎯 Personel Prim Sistemi
+
+- Garson prim ayarları
+- Kurye prim ayarları
+- Ürün bazlı prim kuralı oluşturma
+- Ayın elemanı primi
+- Garsonun kendi prim raporu
+- Kuryenin kendi prim raporu
+
+### 🏪 Kafe Bilgi Yönetimi
+
+- Kafe adı, adres, telefon ve çalışma saatleri
+- Instagram ve harita bağlantısı
+- Açık/kapalı durumu
+- Tema rengi ve QR menü görünüm seçimi
+- Kafe etkinlikleri yönetimi
+
+---
+
+## 👥 Kullanıcı Rolleri
+
+| Rol | Yetkiler |
+|---|---|
+| **Yönetici** | Menü, masa, kullanıcı, rapor, gelir-gider, prim, QR menü ve kafe bilgilerini yönetir. |
+| **Garson** | Masa seçer, sipariş oluşturur, hesap kapatır ve kendi prim bilgisini görüntüler. |
+| **Kurye** | Kendisine atanan paket siparişleri görüntüler, teslimat durumunu günceller ve kendi primini takip eder. |
+| **Müşteri** | QR menü üzerinden ürünleri görüntüler ve geri bildirim gönderir. |
+
+---
+
+## 🖼️ Ekran Görüntüleri
+
+> Görseller `docs/ui-design/stitch/` klasöründe bulunan UI/UX tasarım referanslarından alınmıştır.
+
+### 🔐 Giriş ve Rol Panelleri
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/01-ana-giris.png" alt="Ana Giriş Ekranı" width="100%" />
+      <br><strong>Ana Giriş</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/02-garson-paneli.png" alt="Garson Paneli" width="100%" />
+      <br><strong>Garson Paneli</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/03-yonetici-paneli.png" alt="Yönetici Paneli" width="100%" />
+      <br><strong>Yönetici Paneli</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/04-kurye-paneli.png" alt="Kurye Paneli" width="100%" />
+      <br><strong>Kurye Paneli</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/18-sifremi-degistir-modal.png" alt="Şifre Değiştirme Modalı" width="100%" />
+      <br><strong>Şifre Değiştirme</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/08-kullanici-yonetimi.png" alt="Kullanıcı Yönetimi" width="100%" />
+      <br><strong>Kullanıcı Yönetimi</strong>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 🪑 Masa, Sipariş ve Paket Sipariş Süreçleri
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/21-masa-secimi.png" alt="Masa Seçimi" width="100%" />
+      <br><strong>Masa Seçimi</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/22-siparis-ekrani.png" alt="Sipariş Ekranı" width="100%" />
+      <br><strong>Sipariş Ekranı</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/23-paket-siparis-olusturma.png" alt="Paket Sipariş Oluşturma" width="100%" />
+      <br><strong>Paket Sipariş Oluşturma</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/19-paket-siparis-listesi.png" alt="Paket Sipariş Listesi" width="100%" />
+      <br><strong>Paket Sipariş Listesi</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/20-kurye-teslimat-kartlari.png" alt="Kurye Teslimat Kartları" width="100%" />
+      <br><strong>Kurye Teslimat Kartları</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/16-garson-kendi-primlerim.png" alt="Garson Primleri" width="100%" />
+      <br><strong>Garson Primleri</strong>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 📱 QR Menü ve Menü Yönetimi
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/05-qr-menu-dikey.png" alt="QR Menü Dikey Görünüm" width="100%" />
+      <br><strong>QR Menü Dikey</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/06-qr-menu-yatay.png" alt="QR Menü Yatay Görünüm" width="100%" />
+      <br><strong>QR Menü Yatay</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/07-menu-yonetimi.png" alt="Menü Yönetimi" width="100%" />
+      <br><strong>Menü Yönetimi</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/15-qr-menu-yonetimi.png" alt="QR Menü Yönetimi" width="100%" />
+      <br><strong>QR Menü Yönetimi</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/10-musteri-geri-bildirimleri.png" alt="Müşteri Geri Bildirimleri" width="100%" />
+      <br><strong>Müşteri Geri Bildirimleri</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/11-kafe-bilgi-yonetimi.png" alt="Kafe Bilgi Yönetimi" width="100%" />
+      <br><strong>Kafe Bilgi Yönetimi</strong>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 📊 Yönetim, Finans ve Raporlama
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/12-gelir-gider.png" alt="Gelir Gider Yönetimi" width="100%" />
+      <br><strong>Gelir-Gider</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/13-malzeme-alim.png" alt="Malzeme Alım Yönetimi" width="100%" />
+      <br><strong>Malzeme Alım</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/14-raporlama.png" alt="Raporlama" width="100%" />
+      <br><strong>Raporlama</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/09-personel-prim-yonetimi.png" alt="Personel Prim Yönetimi" width="100%" />
+      <br><strong>Personel Prim Yönetimi</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/17-kurye-kendi-primlerim.png" alt="Kurye Primleri" width="100%" />
+      <br><strong>Kurye Primleri</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/ui-design/stitch/04-kurye-paneli.png" alt="Kurye Paneli" width="100%" />
+      <br><strong>Kurye Operasyonları</strong>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+### Frontend
+
+| Teknoloji / Paket | Kullanım Amacı |
+|---|---|
+| **Flutter** | Web ve mobil arayüz geliştirme |
+| **Dart** | Flutter uygulama dili |
+| **http** | Backend API ile haberleşme |
+| **file_picker** | Görsel/dosya seçimi |
+| **http_parser** | Multipart görsel yükleme içerik tipi yönetimi |
+| **qr_flutter** | QR menü bağlantıları için QR üretimi |
+| **file_saver** | Dosya dışa aktarma işlemleri |
+| **url_launcher** | Harici bağlantı açma |
+
+### Backend
+
+| Teknoloji / Paket | Kullanım Amacı |
+|---|---|
+| **Node.js** | Backend çalışma ortamı |
+| **Express.js** | REST API geliştirme |
+| **PostgreSQL / pg** | Veritabanı bağlantısı ve sorgular |
+| **dotenv** | Ortam değişkenleri yönetimi |
+| **cors** | Frontend-backend istek izinleri |
+| **multer** | Ürün ve kafe görseli yükleme |
+
+---
+
+## 📁 Proje Yapısı
+
+```text
+kafe-otomasyonu/
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   └── uploads/
+│       ├── products/
+│       └── cafe/
+│
+├── frontend/
+│   ├── lib/
+│   │   ├── main.dart
+│   │   ├── models/
+│   │   ├── screens/
+│   │   └── services/
+│   │       └── api_service.dart
+│   ├── pubspec.yaml
+│   └── test/
+│
+├── docs/
+│   └── ui-design/
+│       └── stitch/
+│           ├── 01-ana-giris.png
+│           ├── 02-garson-paneli.png
+│           └── ...
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Kurulum
+
+### 1. Repoyu Klonla
+
+```bash
+git clone https://github.com/fmslgn/kafe-otomasyonu.git
+cd kafe-otomasyonu
+```
+
+---
+
+### 2. PostgreSQL Veritabanı Oluştur
+
+PostgreSQL üzerinde proje için bir veritabanı oluştur:
+
+```sql
+CREATE DATABASE kafe_otomasyonu_db;
+```
+
+> Veritabanı tabloları backend tarafındaki endpoint yapısına uygun şekilde oluşturulmalıdır. Proje yerel geliştirme ortamında varsayılan olarak `kafe_otomasyonu_db` veritabanını kullanır.
+
+---
+
+### 3. Backend Kurulumu
 
 ```bash
 cd backend
 npm install
 ```
 
-Frontend için:
+Backend klasörü içinde `.env` dosyası oluştur:
+
+```env
+PORT=3000
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_NAME=kafe_otomasyonu_db
+DB_USER=postgres
+DB_PASSWORD=postgres
+```
+
+Backend sunucusunu başlat:
+
+```bash
+npm start
+```
+
+Backend çalıştığında aşağıdaki adreslerden kontrol edilebilir:
+
+```text
+http://localhost:3000
+http://localhost:3000/api/test-db
+```
+
+---
+
+### 4. Frontend Kurulumu
+
+Yeni terminal açıp proje kök dizininden frontend klasörüne gir:
 
 ```bash
 cd frontend
 flutter pub get
 ```
 
-Veritabanı için PostgreSQL kurulmalı ve proje veritabanı oluşturulmalıdır.
+Flutter web olarak çalıştırmak için:
 
-`.env.example` dosyası örnek alınarak backend içinde `.env` dosyası oluşturulmalıdır.
+```bash
+flutter run -d chrome
+```
 
-## Not
+Mobil cihaz veya emülatör üzerinde çalıştırmak için:
 
-`.env`, `node_modules`, `build` ve geçici dosyalar GitHub'a yüklenmemelidir.
+```bash
+flutter run
+```
+
+---
+
+## 🔧 Backend Ortam Değişkenleri
+
+| Değişken | Açıklama | Varsayılan |
+|---|---|---|
+| `PORT` | Backend sunucu portu | `3000` |
+| `DB_HOST` | PostgreSQL host adresi | `127.0.0.1` |
+| `DB_PORT` | PostgreSQL portu | `5432` |
+| `DB_NAME` | Veritabanı adı | `kafe_otomasyonu_db` |
+| `DB_USER` | PostgreSQL kullanıcı adı | `postgres` |
+| `DB_PASSWORD` | PostgreSQL şifresi | `postgres` |
+
+---
+
+## 🌐 API Modülleri
+
+Frontend, backend ile `ApiService` üzerinden haberleşir. Varsayılan backend adresi:
+
+```dart
+static const String baseUrl = 'http://localhost:3000';
+```
+
+Farklı bir sunucu kullanmak istersen `frontend/lib/services/api_service.dart` içindeki `baseUrl` değeri güncellenmelidir.
+
+### Temel API Grupları
+
+| Modül | Örnek Endpointler | Açıklama |
+|---|---|---|
+| Auth | `/api/login` | Kullanıcı giriş işlemleri |
+| Ürünler | `/api/products` | Ürün listeleme, ekleme, güncelleme |
+| Kategoriler | `/api/categories` | Menü kategori yönetimi |
+| Masalar | `/api/tables` | Masa listeleme ve masa yönetimi |
+| Siparişler | `/api/orders` | Masa siparişi oluşturma ve hesap kapatma |
+| Paket Sipariş | `/api/package-orders` | Paket sipariş ve kurye süreci |
+| Kuryeler | `/api/couriers` | Aktif kurye listesi ve kurye siparişleri |
+| Finans | `/api/finance/summary` | Gelir-gider özetleri |
+| Giderler | `/api/expenses` | Genel gider kayıtları |
+| Malzeme Alım | `/api/material-purchases` | Malzeme alım işlemleri |
+| Raporlama | `/api/reports/summary` | Satış ve kapanan hesap raporları |
+| Kullanıcılar | `/api/users` | Kullanıcı yönetimi |
+| Prim | `/api/commission/settings` | Garson ve kurye prim yönetimi |
+| QR Menü | `/api/public-menu` | Müşteri QR menü ürünleri |
+| Geri Bildirim | `/api/customer-feedback` | Müşteri geri bildirim işlemleri |
+| Kafe Bilgileri | `/api/cafe-settings` | Kafe bilgisi, tema ve görünüm ayarları |
+| Etkinlikler | `/api/cafe-events` | Kafe etkinlik yönetimi |
+
+---
+
+## 🧪 Test ve Kontrol
+
+### Backend veritabanı bağlantısını kontrol et
+
+```bash
+curl http://localhost:3000/api/test-db
+```
+
+Başarılı cevap örneği:
+
+```json
+{
+  "success": true,
+  "message": "Veritabanı bağlantısı başarılı.",
+  "time": "2026-01-01T12:00:00.000Z"
+}
+```
+
+### Flutter bağımlılıklarını kontrol et
+
+```bash
+cd frontend
+flutter pub get
+flutter analyze
+```
+
+---
+
+## 🖼️ Görsel Yükleme Notları
+
+Backend tarafında ürün ve kafe görselleri `uploads` klasörü altında saklanır:
+
+```text
+backend/uploads/products/
+backend/uploads/cafe/
+```
+
+Desteklenen görsel türleri:
+
+- `.jpg`
+- `.jpeg`
+- `.png`
+- `.webp`
+
+Güvenlik amacıyla çalıştırılabilir veya riskli uzantılar kabul edilmez.
+
+---
+
+## 📱 QR Menü Kullanımı
+
+QR menü sayfası aşağıdaki rotalarla açılabilir:
+
+```text
+/menu
+/qr-menu
+```
+
+Örnek masa parametresi ile kullanım:
+
+```text
+http://localhost:3000/#/menu?table=4
+```
+
+QR menü üzerinden müşteri:
+
+- Ürünleri görüntüleyebilir
+- Kafe bilgilerini görebilir
+- Etkinlikleri takip edebilir
+- Geri bildirim gönderebilir
+
+---
+
+## 🧩 Geliştirme Notları
+
+- Frontend yalnızca `ApiService` üzerinden backend API kullanacak şekilde kurgulanmıştır.
+- Arayüz metinleri Türkçedir.
+- QR menü dikey/yatay görünüm ayarları korunmalıdır.
+- Yönetici tarafından seçilen tema rengi QR menü ve ilgili ekranlarda kullanılmalıdır.
+- Prim sistemi kapalıysa ilgili prim kartları kullanıcıya gösterilmemelidir.
+- `.env`, `node_modules`, `build` ve geçici dosyalar GitHub'a yüklenmemelidir.
+
+---
+
+## 🗺️ Yol Haritası
+
+- [x] Rol bazlı giriş sistemi
+- [x] Garson paneli
+- [x] Yönetici paneli
+- [x] Kurye paneli
+- [x] Masa sipariş yönetimi
+- [x] Paket sipariş yönetimi
+- [x] QR menü
+- [x] Ürün görseli yükleme
+- [x] Gelir-gider takibi
+- [x] Raporlama
+- [x] Personel prim yönetimi
+- [x] Müşteri geri bildirimleri
+- [ ] Veritabanı kurulum SQL dosyasının repoya eklenmesi
+- [ ] Canlı ortam yayın dokümantasyonunun eklenmesi
+- [ ] Mobil APK/Play Store yayın adımlarının dokümante edilmesi
+
+---
+
+## 👨‍💻 Geliştirici
+
+**Furkan Mehmet Salgın**
+
+- GitHub: [@fmslgn](https://github.com/fmslgn)
+- Repository: [kafe-otomasyonu](https://github.com/fmslgn/kafe-otomasyonu)
+
+---
+
+<div align="center">
+
+### ⭐ Projeyi beğendiysen repoya yıldız verebilirsin.
+
+</div>
