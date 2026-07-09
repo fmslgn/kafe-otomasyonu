@@ -1,5 +1,9 @@
 <div align="center">
 
+<img src="docs/images/kafe-otomasyonu-afis.svg" alt="Kafe Otomasyonu Afiş" width="100%" />
+
+<br>
+
 # ☕ Modern Kafe Otomasyonu
 
 **Flutter + Node.js + PostgreSQL ile geliştirilmiş; garson, yönetici, kurye ve müşteri QR menü süreçlerini tek panelde yöneten modern kafe otomasyonu uygulaması.**
@@ -328,6 +332,8 @@ kafe-otomasyonu/
 │   └── test/
 │
 ├── docs/
+│   ├── images/
+│   │   └── kafe-otomasyonu-afis.svg
 │   └── ui-design/
 │       └── stitch/
 │           ├── 01-ana-giris.png
