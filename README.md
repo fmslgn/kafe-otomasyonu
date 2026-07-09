@@ -18,13 +18,13 @@
 
 **Modern Kafe Otomasyonu**, kafe ve restoran işletmelerinde sipariş alma, masa yönetimi, paket sipariş takibi, kurye atama, QR menü, gelir-gider takibi, raporlama ve personel prim süreçlerini dijital ortama taşımak için geliştirilmiş kapsamlı bir otomasyon sistemidir.
 
-Proje iki ana bölümden oluşur:
+Proje üç ana bölümden oluşur:
 
 | Bölüm | Açıklama |
 |---|---|
 | **Frontend** | Flutter ile geliştirilen kullanıcı arayüzü |
 | **Backend** | Node.js ve Express.js ile geliştirilen REST API |
-| **Veritabanı** | PostgreSQL üzerinde tutulan işletme verileri |
+| **Database** | PostgreSQL tablo yapısı ve başlangıç verileri |
 
 ---
 
@@ -33,10 +33,10 @@ Proje iki ana bölümden oluşur:
 - [Öne Çıkan Özellikler](#-öne-çıkan-özellikler)
 - [Kullanıcı Rolleri](#-kullanıcı-rolleri)
 - [Ekran Görüntüleri](#-ekran-görüntüleri)
-- [Teknolojiler](#-kullanılan-teknolojiler)
+- [Kullanılan Teknolojiler](#-kullanılan-teknolojiler)
 - [Proje Yapısı](#-proje-yapısı)
 - [Kurulum](#-kurulum)
-- [Backend Ortam Değişkenleri](#-backend-ortam-değişkenleri)
+- [Veritabanı Kurulumu](#-veritabanı-kurulumu)
 - [API Modülleri](#-api-modülleri)
 - [Geliştirme Notları](#-geliştirme-notları)
 
@@ -314,6 +314,9 @@ kafe-otomasyonu/
 │       ├── products/
 │       └── cafe/
 │
+├── database/
+│   └── database.sql
+│
 ├── frontend/
 │   ├── lib/
 │   │   ├── main.dart
@@ -347,19 +350,46 @@ cd kafe-otomasyonu
 
 ---
 
-### 2. PostgreSQL Veritabanı Oluştur
+## 🗄️ Veritabanı Kurulumu
 
-PostgreSQL üzerinde proje için bir veritabanı oluştur:
+PostgreSQL üzerinde proje için veritabanı oluştur:
 
 ```sql
 CREATE DATABASE kafe_otomasyonu_db;
 ```
 
-> Veritabanı tabloları backend tarafındaki endpoint yapısına uygun şekilde oluşturulmalıdır. Proje yerel geliştirme ortamında varsayılan olarak `kafe_otomasyonu_db` veritabanını kullanır.
+Ardından proje içindeki SQL dosyasını çalıştır:
+
+```bash
+psql -U postgres -d kafe_otomasyonu_db -f database/database.sql
+```
+
+Bu dosya aşağıdaki yapıları oluşturur:
+
+- Kullanıcılar
+- Kategoriler ve ürünler
+- Masalar
+- Masa siparişleri
+- Paket siparişleri
+- Gelir-gider kayıtları
+- Malzeme alımları
+- Prim ayarları
+- Ürün bazlı prim kuralları
+- Müşteri geri bildirimleri
+- Kafe bilgileri
+- Kafe etkinlikleri
+
+Varsayılan giriş bilgileri:
+
+| Rol | Kullanıcı Adı | Şifre |
+|---|---|---|
+| Yönetici | `admin` | `1234` |
+| Garson | `garson` | `1234` |
+| Kurye | `kurye` | `1234` |
 
 ---
 
-### 3. Backend Kurulumu
+### 2. Backend Kurulumu
 
 ```bash
 cd backend
@@ -392,7 +422,7 @@ http://localhost:3000/api/test-db
 
 ---
 
-### 4. Frontend Kurulumu
+### 3. Frontend Kurulumu
 
 Yeni terminal açıp proje kök dizininden frontend klasörüne gir:
 
@@ -415,19 +445,6 @@ flutter run
 
 ---
 
-## 🔧 Backend Ortam Değişkenleri
-
-| Değişken | Açıklama | Varsayılan |
-|---|---|---|
-| `PORT` | Backend sunucu portu | `3000` |
-| `DB_HOST` | PostgreSQL host adresi | `127.0.0.1` |
-| `DB_PORT` | PostgreSQL portu | `5432` |
-| `DB_NAME` | Veritabanı adı | `kafe_otomasyonu_db` |
-| `DB_USER` | PostgreSQL kullanıcı adı | `postgres` |
-| `DB_PASSWORD` | PostgreSQL şifresi | `postgres` |
-
----
-
 ## 🌐 API Modülleri
 
 Frontend, backend ile `ApiService` üzerinden haberleşir. Varsayılan backend adresi:
@@ -437,8 +454,6 @@ static const String baseUrl = 'http://localhost:3000';
 ```
 
 Farklı bir sunucu kullanmak istersen `frontend/lib/services/api_service.dart` içindeki `baseUrl` değeri güncellenmelidir.
-
-### Temel API Grupları
 
 | Modül | Örnek Endpointler | Açıklama |
 |---|---|---|
@@ -464,23 +479,13 @@ Farklı bir sunucu kullanmak istersen `frontend/lib/services/api_service.dart` i
 
 ## 🧪 Test ve Kontrol
 
-### Backend veritabanı bağlantısını kontrol et
+Backend veritabanı bağlantısını kontrol et:
 
 ```bash
 curl http://localhost:3000/api/test-db
 ```
 
-Başarılı cevap örneği:
-
-```json
-{
-  "success": true,
-  "message": "Veritabanı bağlantısı başarılı.",
-  "time": "2026-01-01T12:00:00.000Z"
-}
-```
-
-### Flutter bağımlılıklarını kontrol et
+Flutter bağımlılıklarını ve analizini kontrol et:
 
 ```bash
 cd frontend
@@ -542,26 +547,6 @@ QR menü üzerinden müşteri:
 - Yönetici tarafından seçilen tema rengi QR menü ve ilgili ekranlarda kullanılmalıdır.
 - Prim sistemi kapalıysa ilgili prim kartları kullanıcıya gösterilmemelidir.
 - `.env`, `node_modules`, `build` ve geçici dosyalar GitHub'a yüklenmemelidir.
-
----
-
-## 🗺️ Yol Haritası
-
-- [x] Rol bazlı giriş sistemi
-- [x] Garson paneli
-- [x] Yönetici paneli
-- [x] Kurye paneli
-- [x] Masa sipariş yönetimi
-- [x] Paket sipariş yönetimi
-- [x] QR menü
-- [x] Ürün görseli yükleme
-- [x] Gelir-gider takibi
-- [x] Raporlama
-- [x] Personel prim yönetimi
-- [x] Müşteri geri bildirimleri
-- [ ] Veritabanı kurulum SQL dosyasının repoya eklenmesi
-- [ ] Canlı ortam yayın dokümantasyonunun eklenmesi
-- [ ] Mobil APK/Play Store yayın adımlarının dokümante edilmesi
 
 ---
 
